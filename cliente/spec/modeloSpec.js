@@ -10,21 +10,41 @@ describe("El juego", function() {
     usr2=miJuego.usuarios["luis"];
   });
  it("Inicialmente", function() {
-    var lista= miJuego.obtenerPartidas();
+    let lista= miJuego.obtenerPartidas();
     expect(lista.length).toEqual(0);
     expect(usr1.nick).toEqual("pepe");
     expect(usr2.nick).toEqual("luis");
   });
-
- it("crear partida", function() {
-    let codigo usr1.crearPartida;
-    expect(miJuego.partidas[codigo]).toBeDefined();
-    let partida=miJuego.partidas[codigo];
-    expect(partida.owner.nick).toEqual(usr1.nick);
-    expect(partida.jugadores[0].nick).toEqual(usr1.nick);
-    expect(partida.codigo)toEqual(codigo);
-    
-  });//
+ it("Crear partida",function(){
+  let codigo=usr1.crearPartida();
+  expect(miJuego.partidas[codigo]).toBeDefined();
+  let partida=miJuego.partidas[codigo];
+  expect(partida.owner.nick).toEqual(usr1.nick);
+  expect(partida.jugadores[0].nick).toEqual(usr1.nick);
+  expect(partida.codigo).toEqual(codigo);
+ })
  
+ it("Agregar Jugador",function(){
+  let codigo=usr1.crearPartida();
+  expect(miJuego.partidas[codigo]).toBeDefined();
+  let partida=miJuego.partidas[codigo];
+  partida.agregarJugador(usr2);
+  expect(partida.jugadores[0].nick).toEqual(usr1.nick);
+  expect(partida.jugadores[1].nick).toEqual(usr2.nick);
 
+ })
+
+ 
+ it("Unirse a Partida",function(){
+  let codigo=usr1.crearPartida();
+  expect(miJuego.partidas[codigo]).toBeDefined();
+  let partida=miJuego.partidas[codigo];
+  usr2.unirseAPartida(codigo,usr2);
+  expect(partida.jugadores[0].nick).toEqual(usr1.nick);
+  expect(partida.jugadores[1].nick).toEqual(usr2.nick);
+
+
+
+ })
+ 
 });

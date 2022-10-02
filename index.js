@@ -36,4 +36,5 @@ app.listen(PORT, () => {
 //git add .
 //git del .
 //git add.
-// git push
+//git push
+//git commit -m "mensaje"
