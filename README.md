@@ -1,9 +1,13 @@
 # Proyecto22
-Proyecto de la asignatura Procesos de Ingeniería del Software curso 22-23 Escuela Superior de Ingeniería Informática de Albacete - Universidad de Castilla-La Mancha
+Proyecto de Juan Fernández Fresneda de la asignatura Procesos de Ingenería del Software del grado de Ingenería Informática en la UCLM de Albacete.
 
 # Descripción
-Este repositorio contiene la arquitectura base de una solución software estilo SaaS (Software as a Service) de una aplicación genérica que implementa la siguiente funcionalidad:
+En este repositorio se realizá el juego multijugador Hundir la flota implemetado en Saas.
 
-- Los usuarios inician sesión con nick (no hay clave). El nick es único
-- Los usuarios pueden crear partida (sin nombre). Las partidas son de 2 usuarios. El sistema asigna un código a la partida
-- Los usuarios puede unirse a partidas disponibles (las que tienen sólo un jugador)
+- El usuario que quiera acceder al juego deberá introducir su nick, este será único y no podrá tener mas de 6 caracteres.
+- Cada usuario tendrá la opción de crear una partida, el sistema le  añadirá un código unico y este esperará a  su rival.
+- Cada usuario tendrá la opción de unirse a una partida ya creada.
+- Una vez los 2 usuarios se encuentran en la partida deberán introducir en que posiciones se encontrará su flota.
+- Una vez añadida la flota de los 2 rivales el sistema indicará quien empieza disparando.
+- Cada rival dispondrá de un mapa en la que deberá disparar para descubrir las posiciones de los barcos de su rival
+- El jugador que haya descubierto todos los barcos rivales ganará,cada usuario tendrá la opción de salir de la partida y el sistema indicará como ganador al usuario que no haya salido.
