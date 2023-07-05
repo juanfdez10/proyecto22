@@ -1,8 +1,9 @@
 let mongo = require("mongodb").MongoClient;
 let ObjectID = require("mongodb").ObjectID;
-
 function Cad() {
+
     this.logs;
+    this.usuarios;
 
     // logs
     this.insertarLog = function (log, callback) {
@@ -31,10 +32,24 @@ function Cad() {
         });
     };
 
+       this.obtenerUsuarios=function(callback){
+        obtenerTodos(this.usuarios,callback);
+    }
+
+    this.obtenerOCrearUsuario=function(criterio,callback){
+        obtenerOCrear(this.usuarios,criterio,callback)
+    }
+
+
+    //USUARIOS
+
+    this.obtenerUsuarios = function (callback) {
+        obtenerTodos(this.logs, callback);
+    }
 
     this.conectar = function () {
         let cad = this;
-        mongo.connect('mongodb+srv://batalla:batalla@cluster0.cmqcemc.mongodb.net/?retryWrites=true&w=majority',
+        mongo.connect('mongodb+srv://batalla:<password>@cluster0.cmqcemc.mongodb.net/?retryWrites=true&w=majority',
             { useUnifiedTopology: true }, function (err, database) {
                 if (!err) {
                     database.db("batalla").collection("logs", function (err, col) {
@@ -46,9 +61,9 @@ function Cad() {
                             cad.logs = col;
                         }
                     });
-                }
+                }        
+
             })
     }
 }
-
 module.exports.Cad = Cad

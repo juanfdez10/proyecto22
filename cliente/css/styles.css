@@ -3,12 +3,13 @@ html, body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background-color: #ddd;
+	background-color:whitesmoke;
 	min-width: 860px;
 }
 h1, h2, h3, h4, h5, h6, p, li, span {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: #222222;
+	text-align: center;
 }
 a {
 	color: #222222;
@@ -28,7 +29,7 @@ button {
 	color: #EEEEEE;
 	background-color: #25567B;
 	border: none;
-	margin: 1em auto 0 auto;
+	margin: 0 0 0 0;
 	padding: 10px;
 	border-radius: 5px;
 }
@@ -317,4 +318,93 @@ button {
 		-o-transform: translateY(0);
 		transform: translateY(0);
 	}
+}
+.div-imagen-fondo {
+	background-image: url(../img/404.jpg);
+}
+
+#div{
+	margin: 0;
+    padding: 0;
+    background: url(cliente/img/404.jpg);   
+    background-size: cover;
+    background-position: center;
+    font-family: sans-serif;
+}
+
+.contenedor-principal{
+		 	background-image: url(cliente/img/404.jpg);
+		 	height: 100vh;
+		 	background-size: cover;
+		 	background-position: center;
+		 }
+
+
+.card-img-bottom{
+
+		 	height: 75vh;
+		 	width: 100vh;
+		 	size: cover;
+		 		 
+}
+.card1-img-bottom{
+			margin-top: 20px;
+		 	height: 75vh;
+		 	width: 100vh;
+		 	size: cover;
+		 	background-color: #f2f2f2;
+		 		 
+}
+.mi-input {
+  text-align: left;
+}
+
+.img-minimizada {
+  max-width: 700px;
+  height: auto;
+}
+
+.button32 {
+  width: 300px;
+  height: 38px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button33 {
+  position: relative;
+  width: 90px;
+  height: 38px;
+  background-color: yellow;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button33::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 10px;
+  height: 100%;
+}
+
+.button33:hover::before {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.button34 {
+  width: 369px;
+  height: 45px;
+  background-color: yellow;
+  color: white;
+
 }

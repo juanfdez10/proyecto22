@@ -73,7 +73,9 @@ function ServidorWS() {
                     let res = jugador.barcosDesplegados();
                     let codigoStr = partida.codigo.toString();
                     if (partida.esJugando()) {
-                        cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                        let turno = partida.obtenerTurno();
+                        //cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                        cli.enviarATodosEnPartida(io, codigoStr, "aJugar", turno.nick);
                     }
                 }
             });
@@ -86,9 +88,10 @@ function ServidorWS() {
                     let turno = partida.obtenerTurno();
                     if (jugador == turno) {
                         let impacto = jugador.disparar(x, y)
-                        let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
+                        let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick, disp: jugador.disparosrealizados }
                         if (partida.esFinal()) {
-                            cli.enviarATodosEnPartida(io, partida.codigo.toString(), "finPartida", jugador.nick);
+                            //let res3 = { ganador: jugador.nick, partidaganada: jugador.partida, turno: jugador.nick.turno }//
+                            cli.enviarATodosEnPartida(io, partida.codigo.toString(), "finPartida", res2);
                         }
                         cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res2);
                     }

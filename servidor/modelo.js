@@ -1,10 +1,10 @@
-//let cad = require('./cad.js')
+let cad = require('./cad.js')
 //he borrado el test
-function Juego() {
+function Juego(test) {
     this.partidas = {};
     this.usuarios = {};
-//    this.cad = new cad.Cad(); // capa de acceso a datos
-//    this.test = test
+    this.cad = new cad.Cad(); // capa de acceso a datos
+    this.test = test
 
     this.agregarUsuario = function (nick) {
         let res = { "nick": -1 };
@@ -107,22 +107,42 @@ function Juego() {
         return this.usuarios[nick];
     }
 
-//    this.insertarLog = function (log, callback){
-//        if(test == 'false'){
-//            this.cad.insertarLog(log, callback)
-//        }
-//    }
-//    this.obtenerLogs = function (callback) {
-//        this.cad.obtenerLogs(callback)
-//    }
-    
-//    if(test == 'false'){
-//        this.cad.conectar(function(db){
-//            console.log('conectado a atlas')
-//        })
-//    }
+    this.insertarLog = function (log, callback){
+        if(test == 'false'){
+            this.cad.insertarLog(log, callback)
+        }
+    }
+    this.obtenerLogs = function (callback) {
+        this.cad.obtenerLogs(callback)
+    }
 
+    if(test == 'false'){
+        this.cad.conectar(function(db){
+            console.log('conectado a atlas')
+        })
+    }
+
+    this.conectar = function () {
+        let cad = this;
+        mongo.connect('mongodb+srv://batalla:<password>@cluster0.cmqcemc.mongodb.net/?retryWrites=true&w=majority',
+            { useUnifiedTopology: true }, function (err, database) {
+                if (!err) {
+                    database.db("batalla").collection("logs", function (err, col) {
+                        if (err) {
+                            console.log("No se puede obtener la coleccion")
+                        }
+                        else {
+                            console.log("tenemos la colección logs");
+                            cad.logs = col;
+                        }
+                    });
+                }        
+
+            })
+    }
 }
+
+
 
 function Usuario(nick, juego) {
     this.nick = nick;
@@ -130,6 +150,7 @@ function Usuario(nick, juego) {
     this.tableroPropio;
     this.tableroRival;
     this.partida;
+    this.disparosrealizados;
     this.flota = {};
     this.crearPartida = function () {
         return this.juego.crearPartida(this);
@@ -144,6 +165,7 @@ function Usuario(nick, juego) {
     }
 
     this.inicializarFlota = function () {
+        this.disparosrealizados=0;
         this.flota["p1"] = new Barco("p1", 1);
         this.flota["p2"] = new Barco("p2", 2);
         this.flota["p3"] = new Barco("p3", 3);
@@ -172,6 +194,7 @@ function Usuario(nick, juego) {
     }
 
     this.disparar = function (x, y) {
+        this.disparosrealizados++;
         return this.partida.disparar(this.nick, x, y);
     }
 

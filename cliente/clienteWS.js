@@ -73,13 +73,14 @@ function ClienteWS(){
 			console.log("Ya puedes desplegar la flota");
 		})
 
-		this.socket.on("aJugar",function(){
-			iu.mostrarModal("A jugar ya puede disparar!");	
+		this.socket.on("aJugar",function(res){
+			iu.mostrarModal("A jugar ya puede disparar el jugador: " +res);	
 		});
 		//seguir
 		this.socket.on("jugadorAbandona",function(data){
 			if (data.codigo != -1) {
-                iu.mostrarHome();
+                //iu.mostrarHome();
+                iu.finPartida();//
                 iu.mostrarModal(data.nombreA + " ha abandonado la partida con codigo: " + data.codigoP + "\n" + " Ha ganado " + data.nombreG);
             }
             else {
@@ -88,8 +89,9 @@ function ClienteWS(){
 		});
 
 		this.socket.on("partidaCancelada", function (res) {
-            iu.mostrarModal("Has terminado la partida " + res.codigo + " antes de que se uniese alguien")
-            iu.mostrarHome()
+            iu.mostrarModal("Has terminado la partida " + res.codigo + " antes de que empezase")
+            //iu.mostrarHome()
+            iu.finPartida();
         })
         //seguir
 		this.socket.on("barcoColocado",function(res){
@@ -126,9 +128,10 @@ function ClienteWS(){
         });
 		this.socket.on("finPartida",function(res){
 			console.log("Fin de la partida");
-			console.log("Ganador: "+res.turno);
-			iu.mostrarModal("Fin de la partida. Ganador: "+res.turno);
+			console.log("Ganador: " +res.turno);
+			iu.mostrarModal("Fin de la partida. Ganador: " + res.turno + ". Disparos realizados: "+ res.disp);
 			iu.finPartida();
+			//iu.mostrarModal("Fin de la partida. Ganador: " +res.turno.nick);
 		});
 	}
 }

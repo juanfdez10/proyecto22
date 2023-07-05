@@ -15,8 +15,16 @@ const PORT = process.env.PORT || 3000; // Util para el despliegue process.env.PO
 var args = process.argv.slice(2);
 
 //args[0]
-let juego = new modelo.Juego(); // Conectamos API REST con la capa logica (index.js --> modelo.js)
+let juego = new modelo.Juego(false); // Conectamos API REST con la capa logica (index.js --> modelo.js)
 let servidorWS = new sWS.ServidorWS();
+
+const passport = require('passport');
+require("./servidor/passport-setup.js");
+const cookieSession=require("cookie-session");
+
+
+//ERROR 401
+
 
 /*  http get post put delete (se llaman verbos)
     get "/"
@@ -35,6 +43,12 @@ let servidorWS = new sWS.ServidorWS();
 // });
 
 app.use(express.static(__dirname + "/"));
+app.use(cookieSession({
+  name: 'Batalla naval',
+  keys: ['key1', 'key2']
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", function (request, response) {
   let contenido = fs.readFileSync(__dirname + "/cliente/index.html"); // lectura bloqueante
@@ -42,11 +56,45 @@ app.get("/", function (request, response) {
   response.send(contenido);
 });
 
+
+
+app.get("/auth/google",passport.authenticate('google', { scope: ['profile','email'] }));
+
+app.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/fallo' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/good');
+});
+
+
+app.get("/good", function(request,response){
+  var nick=request.user.emails[0].value;
+  if (nick){
+    juego.agregarUsuario(nick,true);
+  }
+  response.cookie('nick',nick);
+  response.redirect('/');
+});
+
+app.get("/fallo",function(request,response){
+  response.send({nick:"nook"})
+})
+
+
+
+
+
+//estrategia local
+///auth/plataforma(twitter,github)
+//
+
+
 // en funcion de como se llama en la logica, tmbn tener en cuenta parametros
 app.get("/agregarUsuario/:nick", function (request, response) {
   let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
   let res;
-  res = juego.agregarUsuario(nick); // este res se llama data en clienteRest.js
+  res = juego.agregarUsuario(nick,false); // este res se llama data en clienteRest.js
   response.send(res); // Siempre responder para no evitar timeouts y cosas raras
 
   // En la capa REST se evita poner logica, esto se debe hacer en la capa logica
@@ -98,6 +146,11 @@ app.get('/salir/:nick', function (request, response) {
 //  })
 //});
 
+app.get("*",(req,res) =>{
+  res.sendFile(__dirname + "/cliente/404.html")
+})
+
+
 server.listen(PORT, () => {
   console.log(`Aplicacion escuchando en puerto ${PORT}`);
   console.log('Ctrl+C para salir');
@@ -143,4 +196,7 @@ app.get('/', (req, res) => {
 /*
 npm start
 nom install socket.io
+
+
+git branch
 */

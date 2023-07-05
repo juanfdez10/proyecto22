@@ -11,17 +11,22 @@ function ControlWeb(){
 	}
 	this.mostrarAgregarUsuario=function(){
 	
-  	let cadena= '<div id="mAU">';
-  		
-  	cadena=cadena+'<div class="card" style="width:75%;">';
-		cadena=cadena+'<div class="card-body">';
-		cadena=cadena+'<h2 class="card-title">GUERRA MARINA</h2>';
-		cadena=cadena+'<p class="card-text">Juego Multijugador, introduzca su nick</p>';
-		cadena=cadena+'<input type="text" class="form-control mb-2 mr-sm-2" id="usr" style="width:100%;" placeholder="Máximo 6 caracteres" required>';
-  	cadena=cadena+'<button id="btnAU" class="btn btn-primary mb-2 mr-sm-2">Entrar</button>';
-		cadena=cadena+'</div>';
-		cadena=cadena+'<img class="card-img-bottom" src="cliente/img/armada.webp" alt="imagen barco" style="width:100%">'
-		cadena=cadena+'</div>'
+  	let cadena = '<div id="mAU" >';
+	cadena += '<div class="card" style="width:75%;">';
+	cadena += '<div class="card-body">';
+	cadena += '<h1>GUERRA MARINA</h1>';
+	cadena += '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" style="width:100%;" placeholder="Introduce tu nick (max 6 letras)" required>';
+	cadena += '<button id="btnAU" class="btn btn-primary mb-2 mr-sm-2">Accede con nick</button>';
+	cadena += '<a href="/auth/google" class="btn btn-primary mb-2 mr-sm-2">Accede con Google</a>';
+	cadena += '</div>';
+	//cadena += '<div class="card" style="width: 90%; display: flex; justify-content: center;">';
+	cadena += '<img class="img-minimizada" src="cliente/img/armada.webp" alt="imagen barco" style="margin: 0 auto;">';
+	//cadena += '</div>';
+	cadena += '</div>';
+	cadena += '</div>';
+
+		
+		//cadena=cadena+'</div>';
 		$("#agregarUsuario").append(cadena);     
 		
 		$("#btnAU").on("click",function(e){
@@ -74,7 +79,7 @@ function ControlWeb(){
 	  	cadena=cadena+'<div class="card-body">'
 	    cadena=cadena+'<h4 class="card-title">Crear partida</h4>';
 	    cadena=cadena+'<p class="card-text">Crear una nueva partida y espera rival.</p>';   
-	    cadena=cadena+'<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
+	    cadena=cadena+'<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear Partida</button>';
 	  	cadena=cadena+'</div>';
 
         $('#crearPartida').append(cadena);
